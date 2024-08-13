@@ -1,4 +1,4 @@
-from api.filters import RecipeFilter
+from api.filters import IngredientFilter, RecipeFilter
 from api.paginator import LimitPageNumberPagination
 from api.permissions import IsAuthorOrReadOnly
 from django.db.models import Sum
@@ -42,6 +42,7 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = IngredientSerializer
     pagination_class = None
     filter_backends = [DjangoFilterBackend]
+    filterset_class = IngredientFilter
 
     def get_queryset(self):
         return super().get_queryset().order_by('name')
