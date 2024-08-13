@@ -133,7 +133,8 @@ class RecipeIngredients(models.Model):
         default_related_name = 'recipeingredients'
         constraints = [
             models.UniqueConstraint(fields=['recipe_name', 'name'],
-                                    name='unique_ingredient_in_recipe'),]
+                                    name='unique_ingredient_in_recipe')
+        ]
 
     def __str__(self):
         return (
