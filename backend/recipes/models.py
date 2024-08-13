@@ -73,6 +73,7 @@ class Favorite(models.Model):
     def __str__(self):
         return f'{self.recipe[:MAX_LEN]} добавлен {self.user[:MAX_LEN]}'
 
+
 class RecipeQuerySet(models.QuerySet):
     def with_user_annotations(self, user):
         return self.annotate(is_favorited=Exists(Favorite.objects.filter(
