@@ -9,7 +9,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['158.160.71.142', 'localhost', '127.0.0.1']
 
 
 INSTALLED_APPS = [
@@ -110,8 +110,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
-
-STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'backend_static/static/'
 
