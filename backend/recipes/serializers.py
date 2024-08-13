@@ -4,14 +4,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueTogetherValidator
 from users.serializers import Base64ImageField, UserSerializer
 
-from .models import (
-    Favorite,
-    Ingredient,
-    RecipeIngredients,
-    Recipe,
-    ShoppingCart,
-    Tag,
-)
+from .models import (Favorite, Ingredient, Recipe, RecipeIngredients,
+                     ShoppingCart, Tag)
 
 
 class TagSerializer(serializers.ModelSerializer):

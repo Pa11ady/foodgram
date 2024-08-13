@@ -5,27 +5,17 @@ from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from recipes.models import (
-    Favorite,
-    Ingredient,
-    RecipeIngredients,
-    ShoppingCart,
-    Tag,
-)
+from recipes.models import (Favorite, Ingredient, RecipeIngredients,
+                            ShoppingCart, Tag)
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Recipe
-from .serializers import (
-    FavoriteSerializer,
-    IngredientSerializer,
-    RecipeReadSerializer,
-    RecipeWriteSerializer,
-    ShoppingCartSerializer,
-    ShortRecipeInfoSerializer,
-    TagSerializer,
-)
+from .serializers import (FavoriteSerializer, IngredientSerializer,
+                          RecipeReadSerializer, RecipeWriteSerializer,
+                          ShoppingCartSerializer, ShortRecipeInfoSerializer,
+                          TagSerializer)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
