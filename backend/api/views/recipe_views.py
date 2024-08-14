@@ -1,41 +1,38 @@
-from api.filters import IngredientFilter, RecipeFilter
-from api.paginator import LimitPageNumberPagination
-from api.permissions import IsAuthorOrReadOnly
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from recipes.models import (Favorite, Ingredient, RecipeIngredients,
-                            ShoppingCart, Tag)
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .models import Recipe
-from .serializers import (FavoriteSerializer, IngredientSerializer,
-                          RecipeReadSerializer, RecipeWriteSerializer,
-                          ShoppingCartSerializer, ShortRecipeInfoSerializer,
-                          TagSerializer)
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
+                            ShoppingCart, Tag)
+
+from ..filters import IngredientFilter, RecipeFilter
+from ..paginator import LimitPageNumberPagination
+from ..permissions import IsAuthorOrReadOnly
+from ..serializers.recipe_serializers import (FavoriteSerializer,
+                                              IngredientSerializer,
+                                              RecipeReadSerializer,
+                                              RecipeWriteSerializer,
+                                              ShoppingCartSerializer,
+                                              ShortRecipeInfoSerializer,
+                                              TagSerializer)
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Tag.objects.all()
+    queryset = Tag.objects.all().order_by('name')
     serializer_class = TagSerializer
     pagination_class = None
 
-    def get_queryset(self):
-        return super().get_queryset().order_by('name')
-
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.all().order_by('name')
     serializer_class = IngredientSerializer
     pagination_class = None
     filter_backends = [DjangoFilterBackend]
     filterset_class = IngredientFilter
-
-    def get_queryset(self):
-        return super().get_queryset().order_by('name')
 
 
 class RecipeViewSet(viewsets.ModelViewSet):

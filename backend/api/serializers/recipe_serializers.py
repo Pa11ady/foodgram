@@ -2,10 +2,11 @@ from django.db import transaction
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueTogetherValidator
-from users.serializers import Base64ImageField, UserSerializer
 
-from .models import (Favorite, Ingredient, Recipe, RecipeIngredients,
-                     ShoppingCart, Tag)
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
+                            ShoppingCart, Tag)
+
+from ..serializers.user_serializers import Base64ImageField, UserSerializer
 
 
 class TagSerializer(serializers.ModelSerializer):
@@ -82,11 +83,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         self._validate_unique_tags(data['tags'])
         self._validate_ingredients_list(data['ingredients'])
         return data
-
-    def validate_image(self, value):
-        if not value:
-            raise ValidationError('Поле image обязательно.')
-        return value
 
     def to_representation(self, instance):
         return RecipeReadSerializer(instance).data
