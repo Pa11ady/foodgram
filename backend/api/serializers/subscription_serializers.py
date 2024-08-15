@@ -3,7 +3,6 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
 from users.models import Subscription
-
 from ..serializers.recipe_serializers import ShortRecipeInfoSerializer
 from ..serializers.user_serializers import UserSerializer
 

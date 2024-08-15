@@ -5,7 +5,6 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
                             ShoppingCart, Tag)
-
 from ..serializers.user_serializers import Base64ImageField, UserSerializer
 
 
