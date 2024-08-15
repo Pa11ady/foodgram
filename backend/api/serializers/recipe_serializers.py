@@ -56,17 +56,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
         fields = ('id', 'tags', 'ingredients', 'name', 'image', 'text',
                   'cooking_time')
 
-    def _check_required_fields(self, data):
-        required_fields = ['tags', 'ingredients', 'name', 'text',
-                           'cooking_time']
-        missing_fields = [field for field in required_fields if
-                          not data.get(field)]
-        if missing_fields:
-            error_message = {
-                field: f'Поле {field} обязательно для создания рецепта.' for
-                field in missing_fields}
-            raise ValidationError(error_message)
-
     def _validate_unique_tags(self, tags):
         duplicates = [tag for tag in tags if tags.count(tag) > 1]
         if duplicates:
@@ -79,7 +68,6 @@ class RecipeWriteSerializer(serializers.ModelSerializer):
             raise ValidationError({'ingredients': 'Нужны разные ингредиенты.'})
 
     def validate(self, data):
-        self._check_required_fields(data)
         self._validate_unique_tags(data['tags'])
         self._validate_ingredients_list(data['ingredients'])
         return data
