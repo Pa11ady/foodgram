@@ -1,6 +1,6 @@
 # Foodgram
 
-![Сайт проекта](https://superf00d.ddns.net/)
+[Сайт проекта](https://superf00d.ddns.net)
 
 ## Описание проекта
 
