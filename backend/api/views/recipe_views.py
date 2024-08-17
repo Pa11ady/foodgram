@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.views.generic.base import RedirectView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -121,3 +123,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
         )
         shopping_list = self._create_shopping_txt(ingredients)
         return HttpResponse(shopping_list, content_type='text/plain')
+
+    @action(detail=True, methods=['get'], url_path='get-link')
+    def get_link(self, request, pk=None):
+        recipe = self.get_object()
+        base_url = request.build_absolute_uri('/')
+        short_url = (f'{base_url}s/{recipe.id}/')
+        return Response({'short-link': short_url}, status=status.HTTP_200_OK)
+
+
+class ShortLinkRedirectView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        recipe = get_object_or_404(Recipe, id=int(kwargs['short_link']))
+        url = f'{settings.DOMAIN}/recipes/{recipe.id}/'
+        return url
